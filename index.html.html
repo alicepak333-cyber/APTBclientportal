@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Place To Be – Client Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f8fd;--card:#fff;--ink:#12263f;--mut:#5a6b82;--line:#d9e4f2;--pri:#1d5fb8;--priink:#fff;--acc:#7fbcff;--accsoft:#e6f0fc;--ok:#1d7a4f;--bad:#b3261e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1b2e;--card:#16263d;--ink:#eaf2ff;--mut:#9db3d1;--line:#2a4060;--pri:#7db4f5;--priink:#0f1b2e;--acc:#5aa9f0;--accsoft:#1c3350;--ok:#6fd3a0;--bad:#ff8a80}}
+:root[data-theme="dark"]{--bg:#0f1b2e;--card:#16263d;--ink:#eaf2ff;--mut:#9db3d1;--line:#2a4060;--pri:#7db4f5;--priink:#0f1b2e;--acc:#5aa9f0;--accsoft:#1c3350;--ok:#6fd3a0;--bad:#ff8a80}
+html,body{height:100%;margin:0}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Georgia,sans-serif;margin:0;line-height:1.15}
+h1{font-size:2.2rem}h2{font-size:1.5rem;margin-bottom:.75rem}h3{font-size:1.1rem}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+.btn{background:var(--pri);color:var(--priink);border:0;border-radius:10px;padding:.55rem 1rem;font-weight:600;cursor:pointer}
+.btn.alt{background:transparent;color:var(--pri);border:1.5px solid var(--pri)}
+.btn.sm{padding:.25rem .6rem;font-size:.85rem}
+.btn.bad{background:transparent;color:var(--bad);border:1.5px solid var(--bad)}
+input,select,textarea{width:100%;box-sizing:border-box;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:.55rem .7rem}
+label{display:block;font-weight:600;font-size:.9rem;margin:.8rem 0 .25rem}
+.login{min-height:100%;display:flex;flex-direction:column}
+.hero{background:var(--pri);color:var(--priink);padding:3rem 1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1rem}
+.hero h1{font-size:3.4rem}.hero p{max-width:34ch;opacity:.9;font-size:1.1rem}
+.dots{display:flex;gap:.5rem;margin-top:1rem}.dots i{width:18px;height:18px;border-radius:50%;background:var(--acc)}.dots i:nth-child(2){opacity:.65}.dots i:nth-child(3){opacity:.35}
+.form{padding:2.5rem 1.5rem;display:flex;flex-direction:column;max-width:430px;width:100%;margin:0 auto;box-sizing:border-box}
+.demo{margin-top:1.5rem;background:var(--accsoft);border-radius:12px;padding:.8rem 1rem;font-size:.88rem}
+.demo button{background:none;border:0;padding:0;color:var(--pri);text-decoration:underline;cursor:pointer}
+.err{color:var(--bad);margin-top:.6rem;min-height:1.3em}
+header.top{background:var(--card);border-bottom:1px solid var(--line);padding:.8rem 1.25rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+header.top .brand{font:700 1.15rem 'Bricolage Grotesque',sans-serif;color:var(--pri);margin-right:auto}
+.pill{font-size:.78rem;font-weight:600;background:var(--accsoft);border-radius:99px;padding:.15rem .6rem}
+nav.tabs{display:flex;justify-content:center;gap:.25rem;padding:.75rem 1.25rem 0;overflow-x:auto;border-bottom:1px solid var(--line)}
+nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:.6rem 1rem;cursor:pointer;font-weight:600;color:var(--mut);white-space:nowrap}
+nav.tabs button[aria-selected=true]{color:var(--pri);border-color:var(--acc)}
+main{max-width:980px;margin:0 auto;padding:1.5rem 1.25rem 4rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.25rem;margin-bottom:1rem}
+.row{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}.row.sp{justify-content:space-between}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.mut{color:var(--mut);font-size:.9rem}
+.tw{overflow-x:auto;margin-top:.7rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:.45rem .7rem;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mut);font-weight:600}
+.note{background:var(--accsoft);border-radius:10px;padding:.6rem .8rem;margin-top:.7rem;white-space:pre-wrap}
+.group{margin:1.6rem 0 .6rem;display:flex;align-items:center;gap:.6rem}.group:before{content:"";width:10px;height:26px;border-radius:5px;background:var(--acc)}
+.checks{display:flex;flex-wrap:wrap;gap:.4rem .9rem}.checks label{display:flex;gap:.4rem;align-items:center;font-weight:500;margin:0}.checks input{width:auto}
+.toast{position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1.1rem;border-radius:10px;z-index:9}
+.empty{text-align:center;color:var(--mut);padding:2rem 1rem}
+@media(max-width:760px){.hero{padding:2rem 1.25rem}.hero h1{font-size:2.4rem}.grid2{grid-template-columns:1fr}.form{padding:2rem 1.25rem}}
+@media(prefers-reduced-motion:no-preference){.view{animation:in .25s ease}@keyframes in{from{opacity:0}to{opacity:1}}}
+</style></head>
+<body><div id="app"></div>
+<script>
+const TYPES=['Individual Music Therapy','Group Music Therapy','Songwriting Workshop','Adaptive Lessons'];
+const USERS=[
+{id:'s1',name:'Dana Whitfield',email:'staff@aplacetobe.org',pw:'staff123',role:'staff'},
+{id:'c1',name:'Maya Johnson',email:'maya@example.com',pw:'client123',role:'client'},
+{id:'c2',name:'Jordan Lee',email:'jordan@example.com',pw:'client123',role:'client'},
+{id:'c3',name:'Sam Rivera',email:'sam@example.com',pw:'client123',role:'client'}];
+const SEED={schedules:[
+{id:1,name:'Maya – Fall Individual Sessions',type:TYPES[0],clients:['c1'],headers:['Date','Time','Therapist','Room'],rows:[['Nov 18','3:30 PM','Ms. Alvarez','Studio B'],['Nov 25','3:30 PM','Ms. Alvarez','Studio B'],['Dec 2','3:30 PM','Ms. Alvarez','Studio B']],notes:'Bring your favorite song to share on Nov 18.'},
+{id:2,name:'Tuesday Rhythm Circle',type:TYPES[1],clients:['c1','c2'],headers:['Date','Time','Therapist','Room'],rows:[['Nov 19','5:00 PM','Mr. Okafor','Main Hall'],['Nov 26','5:00 PM','Mr. Okafor','Main Hall']],notes:'No session Thanksgiving week.'},
+{id:3,name:'Jordan – Songwriting Fall',type:TYPES[2],clients:['c2'],headers:['Date','Time','Therapist','Room'],rows:[['Nov 20','4:00 PM','Mr. Okafor','Studio A']],notes:''}],
+announcements:[
+{id:1,title:'Winter concert sign-ups open',body:'Families are invited to our winter concert on Dec 14. Ask staff to reserve seats.',aud:['all'],date:'2026-11-10'},
+{id:2,title:'Rhythm Circle: bring a drum',body:'If you have a hand drum at home, please bring it this week.',aud:[TYPES[1]],date:'2026-11-12'}],
+updates:[{id:1,title:'Building closed Nov 27–28',body:'Our office is closed for the holiday and reopens Nov 30.',date:'2026-11-11'}]};
+let S;try{S=JSON.parse(localStorage.getItem('apb')||'null')}catch(e){}S=S||JSON.parse(JSON.stringify(SEED));
+const save=()=>{try{localStorage.setItem('apb',JSON.stringify(S))}catch(e){}};
+let me=null,tab='',err='';const F={q:'',t:'',from:'',to:'',aq:'',uq:''};
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nextId=a=>a.reduce((m,x)=>Math.max(m,x.id),0)+1;
+const today=()=>new Date().toISOString().slice(0,10);
+const fmt=d=>new Date(d+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;t.setAttribute('role','status');document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+function parseCSV(txt){const rows=[];let r=[],f='',q=false;for(let i=0;i<txt.length;i++){const c=txt[i];
+if(q){if(c=='"'&&txt[i+1]=='"'){f+='"';i++}else if(c=='"')q=false;else f+=c}
+else if(c=='"')q=true;else if(c==','){r.push(f.trim());f=''}
+else if(c=='\n'||c=='\r'){if(c=='\r'&&txt[i+1]=='\n')i++;r.push(f.trim());if(r.some(x=>x))rows.push(r);r=[];f=''}else f+=c}
+r.push(f.trim());if(r.some(x=>x))rows.push(r);return rows}
+const myTypes=()=>[...new Set(S.schedules.filter(s=>s.clients.includes(me.id)).map(s=>s.type))];
+const visAnn=()=>me.role==='staff'?S.announcements:S.announcements.filter(a=>a.aud.includes('all')||a.aud.some(x=>myTypes().includes(x)));
+const sorted=a=>[...a].sort((x,y)=>y.date.localeCompare(x.date)||y.id-x.id);
+
+function render(){const app=$('#app');if(!me){app.innerHTML=loginView();bindLogin();return}
+const tabs=me.role==='staff'?[['sched','Schedules'],['ann','Announcements'],['upd','Updates']]:[['sched','My schedule'],['ann','Announcements'],['upd','Updates']];
+if(!tab)tab='sched';
+app.innerHTML=`<header class="top"><span class="brand">A Place To Be</span><span class="mut">${esc(me.name)}</span><span class="pill">${me.role==='staff'?'Staff':'Client'}</span><button class="btn alt sm" id="out">Log out</button></header>
+<nav class="tabs" role="tablist">${tabs.map(([k,l])=>`<button role="tab" aria-selected="${tab===k}" data-t="${k}">${l}</button>`).join('')}</nav>
+<main class="view">${tab==='sched'?(me.role==='staff'?staffSched():clientSched()):tab==='ann'?annView():updView()}</main>`;
+$('#out').onclick=()=>{me=null;tab='';err='';render()};
+app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()});
+bindMain()}
+
+function loginView(){return`<div class="login"><section class="hero"><h1>Welcome to A Place To Be</h1><p>See your session schedule and stay up to date with news from our team.</p><div class="dots"><i></i><i></i><i></i></div></section>
+<section class="form"><h2>Log in</h2><label for="em">Email</label><input id="em" type="email" autocomplete="username"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password">
+<div class="err" id="err" role="alert">${esc(err)}</div><button class="btn" id="go">Log in</button>
+<div class="demo"><b>Prototype demo accounts</b><br>Staff: <button data-f="0">use staff login</button><br>Clients: <button data-f="1">Maya</button> · <button data-f="2">Jordan</button> · <button data-f="3">Sam (no schedules yet)</button></div></section></div>`}
+function bindLogin(){const go=()=>{const u=USERS.find(u=>u.email===$('#em').value.trim().toLowerCase()&&u.pw===$('#pw').value);
+if(u){me=u;err='';tab='';render()}else{err='Email or password is incorrect. Check both and try again.';$('#err').textContent=err}};
+$('#go').onclick=go;$('#pw').onkeydown=e=>{if(e.key==='Enter')go()};
+document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const u=USERS[+b.dataset.f];$('#em').value=u.email;$('#pw').value=u.pw})}
+
+function schedCard(s,staff){return`<article class="card"><div class="row sp"><div><h3>${esc(s.name)}</h3><div class="mut">${esc(s.type)}${staff?` · ${s.clients.length} client${s.clients.length==1?'':'s'}: ${esc(s.clients.map(id=>USERS.find(u=>u.id==id)?.name).join(', ')||'none')}`:''}</div></div>
+${staff?`<button class="btn bad sm" data-del="${s.id}">Delete</button>`:''}</div>
+<div class="tw"><table><thead><tr>${s.headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${s.rows.map(r=>`<tr>${s.headers.map((_,i)=>`<td>${esc(r[i])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+${s.notes?`<div class="note">${esc(s.notes)}</div>`:''}</article>`}
+function groupedSched(list,staff){return TYPES.filter(t=>list.some(s=>s.type===t)).map(t=>`<div class="group"><h2 style="margin:0">${esc(t)}</h2></div>${list.filter(s=>s.type===t).map(s=>schedCard(s,staff)).join('')}`).join('')}
+function clientSched(){const l=S.schedules.filter(s=>s.clients.includes(me.id));
+return`<h1>Your schedule</h1><p class="mut">Sessions you’re linked to, grouped by type.</p>${l.length?groupedSched(l,false):'<div class="card empty">No schedules are linked to your account yet. Ask a staff member to add you.</div>'}`}
+function staffSched(){return`<h1>Schedules</h1>
+<form class="card" id="up"><h2>Upload a schedule</h2>
+<div class="grid2"><div><label for="sn">Schedule name</label><input id="sn" required placeholder="e.g. Thursday Songwriting"></div>
+<div><label for="st">Session type</label><select id="st">${TYPES.map(t=>`<option>${esc(t)}</option>`).join('')}</select></div></div>
+<label for="cf">CSV file (first row = column headings)</label><input id="cf" type="file" accept=".csv,text/csv" required>
+<div class="mut" style="margin-top:.3rem"><button type="button" class="btn alt sm" id="samp">Download sample CSV</button></div>
+<label for="nt">Additional notes (shown under the schedule)</label><textarea id="nt" rows="3"></textarea>
+<label>Assign to clients</label><div class="checks">${USERS.filter(u=>u.role==='client').map(u=>`<label><input type="checkbox" name="cl" value="${u.id}">${esc(u.name)}</label>`).join('')}</div>
+<div class="err" id="uerr" role="alert"></div><button class="btn">Publish schedule</button></form>
+<h2>Published schedules</h2><div class="card"><div class="grid2"><div><label for="fq" style="margin-top:0">Client or schedule name</label><input id="fq" type="search" placeholder="Search by client name" value="${esc(F.q)}"></div><div><label for="ft" style="margin-top:0">Session type</label><select id="ft"><option value="">All session types</option>${TYPES.map(t=>`<option${F.t===t?' selected':''}>${esc(t)}</option>`).join('')}</select></div><div><label for="ff">Sessions from</label><input id="ff" type="date" value="${F.from}"></div><div><label for="fo">Sessions to</label><input id="fo" type="date" value="${F.to}"></div></div><div class="row sp" style="margin-top:.8rem"><span class="mut" id="fc"></span><button type="button" class="btn alt sm" id="fx">Clear filters</button></div></div><div id="slist">${schedList()}</div>`}
+
+function rowTimes(s){const di=Math.max(0,s.headers.findIndex(h=>/date/i.test(h)));let y=new Date().getFullYear(),pm=-1;return s.rows.map(r=>{const v=(r[di]||'').trim(),hasY=/\d{4}/.test(v);let d=new Date(hasY?v:v+' 2001');if(isNaN(d))return null;if(!hasY){const m=d.getMonth();if(m<pm)y++;pm=m;d=new Date(y,m,d.getDate())}return d.getTime()})}
+function schedFiltered(){const q=F.q.trim().toLowerCase(),f=F.from?new Date(F.from+'T00:00').getTime():null,t=F.to?new Date(F.to+'T23:59').getTime():null;return S.schedules.filter(s=>{if(F.t&&s.type!==F.t)return false;if(q&&!(s.name.toLowerCase().includes(q)||s.clients.some(id=>(USERS.find(u=>u.id==id)?.name||'').toLowerCase().includes(q))))return false;if(f!==null||t!==null){if(!rowTimes(s).some(x=>x!==null&&(f===null||x>=f)&&(t===null||x<=t)))return false}return true})}
+function schedList(){const l=schedFiltered();return l.length?groupedSched(l,true):`<div class="card empty">${S.schedules.length?'No schedules match these filters. Try clearing them.':'Nothing published yet. Upload a CSV above.'}</div>`}
+function searchBar(k,ph){return me.role==='staff'?`<div class="card"><label for="sb" style="margin-top:0">Search</label><input id="sb" type="search" data-k="${k}" placeholder="${ph}" value="${esc(F[k])}"></div>`:''}
+function annList(){const q=F.aq.trim().toLowerCase(),st=me.role==='staff'&&q,l=visAnn().filter(p=>!st||(p.title+' '+p.body+' '+(p.aud.includes('all')?'everyone':p.aud.join(' '))).toLowerCase().includes(q));return l.length||!st?postList(l,me.role==='staff'):'<div class="card empty">No announcements match your search.</div>'}
+function updList(){const q=F.uq.trim().toLowerCase(),st=me.role==='staff'&&q,l=S.updates.filter(p=>!st||(p.title+' '+p.body).toLowerCase().includes(q));return l.length||!st?postList(l,false):'<div class="card empty">No updates match your search.</div>'}
+function postForm(id,label,withAud){return`<form class="card" id="${id}"><h2>${label}</h2><label for="${id}t">Title</label><input id="${id}t" required><label for="${id}b">Message</label><textarea id="${id}b" rows="3" required></textarea>
+${withAud?`<label>Send to</label><div class="checks"><label><input type="checkbox" value="all" checked>Everyone</label>${TYPES.map(t=>`<label><input type="checkbox" value="${esc(t)}">${esc(t)}</label>`).join('')}</div>`:''}
+<div class="err" id="${id}e" role="alert"></div><button class="btn">Publish</button></form>`}
+function postList(list,aud){return list.length?sorted(list).map(p=>`<article class="card"><div class="row sp"><h3>${esc(p.title)}</h3><span class="mut">${fmt(p.date)}</span></div>
+${aud?`<div class="mut">For: ${esc(p.aud.includes('all')?'Everyone':p.aud.join(', '))}</div>`:''}<p style="margin:.5rem 0 0;white-space:pre-wrap">${esc(p.body)}</p>
+${me.role==='staff'?`<div style="margin-top:.7rem"><button class="btn bad sm" data-dp="${aud?'a':'u'}${p.id}">Delete</button></div>`:''}</article>`).join(''):'<div class="card empty">Nothing posted yet.</div>'}
+function annView(){return`<h1>Announcements</h1>${me.role==='staff'?postForm('af','New announcement',true):'<p class="mut">News for everyone and for the session groups you belong to.</p>'}${searchBar('aq','Search announcements by title, message or group')}<div id="plist">${annList()}</div>`}
+function updView(){return`<h1>Updates</h1>${me.role==='staff'?postForm('uf','New update',false):'<p class="mut">General updates from our staff.</p>'}${searchBar('uq','Search updates by title or message')}<div id="plist">${updList()}</div>`}
+
+function bindMain(){
+const sk={fq:'q',ft:'t',ff:'from',fo:'to'};
+Object.keys(sk).forEach(id=>{const el=$('#'+id);if(el)el.oninput=el.onchange=()=>{F[sk[id]]=el.value;$('#slist').innerHTML=schedList();bindMain()}});
+const fx=$('#fx');if(fx)fx.onclick=()=>{F.q=F.t=F.from=F.to='';render()};
+const fc=$('#fc');if(fc)fc.textContent=schedFiltered().length+' of '+S.schedules.length+' schedules shown';
+const sb=$('#sb');if(sb)sb.oninput=()=>{F[sb.dataset.k]=sb.value;$('#plist').innerHTML=tab==='ann'?annList():updList();bindMain()};
+const up=$('#up');if(up){
+$('#samp').onclick=()=>{const b=new Blob(['Date,Time,Therapist,Room\nDec 4,4:00 PM,Ms. Alvarez,Studio A\nDec 11,4:00 PM,Ms. Alvarez,Studio A\n'],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='sample-schedule.csv';a.click()};
+up.onsubmit=async e=>{e.preventDefault();const eEl=$('#uerr'),f=$('#cf').files[0];
+const ids=[...up.querySelectorAll('[name=cl]:checked')].map(x=>x.value);
+const rows=parseCSV(await f.text());
+if(rows.length<2){eEl.textContent='That CSV needs a heading row and at least one session row.';return}
+if(!ids.length){eEl.textContent='Select at least one client so the schedule is visible to someone.';return}
+S.schedules.push({id:nextId(S.schedules),name:$('#sn').value.trim(),type:$('#st').value,clients:ids,headers:rows[0],rows:rows.slice(1),notes:$('#nt').value.trim()});
+save();toast('Schedule published');render()}}
+document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('Delete this schedule?')){S.schedules=S.schedules.filter(s=>s.id!=b.dataset.del);save();render()}});
+document.querySelectorAll('[data-dp]').forEach(b=>b.onclick=()=>{const k=b.dataset.dp,id=+k.slice(1);if(k[0]=='a')S.announcements=S.announcements.filter(x=>x.id!=id);else S.updates=S.updates.filter(x=>x.id!=id);save();render()});
+const af=$('#af');if(af)af.onsubmit=e=>{e.preventDefault();const aud=[...af.querySelectorAll('[type=checkbox]:checked')].map(x=>x.value);
+if(!aud.length){$('#afe').textContent='Choose who should see this announcement.';return}
+S.announcements.push({id:nextId(S.announcements),title:$('#aft').value.trim(),body:$('#afb').value.trim(),aud:aud.includes('all')?['all']:aud,date:today()});save();toast('Announcement published');render()};
+const uf=$('#uf');if(uf)uf.onsubmit=e=>{e.preventDefault();S.updates.push({id:nextId(S.updates),title:$('#uft').value.trim(),body:$('#ufb').value.trim(),date:today()});save();toast('Update published');render()}}
+render();
+</script></body></html>
